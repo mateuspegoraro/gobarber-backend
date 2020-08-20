@@ -6,17 +6,16 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 
-import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+import { container } from 'tsyringe';
 
 const usersRouter = Router();
 
 const upload = multer(uploadConfigs);
 
 usersRouter.post('/', async (request, response) => {
-  const usersRepository = new UsersRepository();
   const { name, email, password } = request.body;
 
-  const createUserService = new CreateUserService(usersRepository);
+  const createUserService = container.resolve(CreateUserService);
 
   const user = await createUserService.execute({
     name,
@@ -34,10 +33,9 @@ usersRouter.patch(
   ensureAuthenticated,
   upload.single('avatar'),
   async (request, response) => {
-    const usersRepository = new UsersRepository();
     const { filename } = request.file;
 
-    const updateUserAvatar = new UpdateUserAvatarService(usersRepository);
+    const updateUserAvatar = container.resolve(UpdateUserAvatarService);
     const user = await updateUserAvatar.execute({
       user_id: request.user.id,
       avatarFileName: filename,
