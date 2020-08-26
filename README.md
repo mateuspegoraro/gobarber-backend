@@ -8,7 +8,7 @@
 
 **RNF**
 
-- Utilizar MailTrap para testar envios de e-mail em ambientes de desenvolvimento;
+- Utilizar Ethereal para testar envios de e-mail em ambientes de desenvolvimento;
 - Utilizar o Amazon SES para envios de e-mail em produção;
 - Envio de e-mails deve acontecer em segundo plano (background job);
 
