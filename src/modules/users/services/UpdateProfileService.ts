@@ -1,5 +1,4 @@
 import User from '@modules/users/infra/typeorm/entities/User';
-// import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
@@ -19,7 +18,7 @@ class UpdateProfileService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
-    @inject('HashRepository')
+    @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
 
