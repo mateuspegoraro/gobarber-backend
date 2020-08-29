@@ -2,17 +2,17 @@
 import FakeUserRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeAppointmentsRepository from '@modules/appointments/repositories/fakes/FakeAppointmentsRepository';
 
-import ListProviderMonthAvaliabilityService from './ListProviderMonthAvaliabilityService';
+import ListProviderMonthAvailabilityService from './ListProviderMonthAvailabilityService';
 
 let fakeUserRepository: FakeUserRepository;
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
-let listProviderMonthAvaliability: ListProviderMonthAvaliabilityService;
+let listProviderMonthAvailability: ListProviderMonthAvailabilityService;
 
-describe('ListProviderMonthAvaliability', () => {
+describe('ListProviderMonthAvailability', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
-    listProviderMonthAvaliability = new ListProviderMonthAvaliabilityService(
+    listProviderMonthAvailability = new ListProviderMonthAvailabilityService(
       fakeAppointmentsRepository,
     );
   });
@@ -78,13 +78,13 @@ describe('ListProviderMonthAvaliability', () => {
       provider_id: provider.id,
     });
 
-    const avaliability = await listProviderMonthAvaliability.execute({
+    const availability = await listProviderMonthAvailability.execute({
       provider_id: provider.id,
       year: 2020,
       month: 5, // é o mesmo que o 4 (o server trata)
     });
 
-    expect(avaliability).toEqual(
+    expect(availability).toEqual(
       expect.arrayContaining([
         {
           day: 19,

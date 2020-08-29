@@ -14,7 +14,7 @@ type IResponse = Array<{
 }>;
 
 @injectable()
-class ListProviderMonthAvaliabilityService {
+class ListProviderMonthAvailabilityService {
   constructor(
     @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
@@ -42,7 +42,7 @@ class ListProviderMonthAvaliabilityService {
       (_, index) => index + 1,
     );
 
-    const avaliability = eachDayArray.map(day => {
+    const availability = eachDayArray.map(day => {
       const appointmentsInDay = appointments.filter(appointment => {
         return getDate(appointment.date) === day;
       });
@@ -53,8 +53,8 @@ class ListProviderMonthAvaliabilityService {
       };
     });
 
-    return avaliability;
+    return availability;
   }
 }
 
-export default ListProviderMonthAvaliabilityService;
+export default ListProviderMonthAvailabilityService;
