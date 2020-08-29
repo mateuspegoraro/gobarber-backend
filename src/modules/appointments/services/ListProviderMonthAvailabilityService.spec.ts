@@ -23,58 +23,75 @@ describe('ListProviderMonthAvailability', () => {
       password: '123456',
     });
 
+    const user = await fakeUserRepository.create({
+      name: 'John Doe 2',
+      email: 'johndoe2@email.com',
+      password: '654321',
+    });
+
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 8, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 9, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 10, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 11, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 12, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 13, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 14, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 15, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 16, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 20, 17, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
     await fakeAppointmentsRepository.create({
       date: new Date(2020, 4, 21, 8, 0, 0),
+      user_id: user.id,
       provider_id: provider.id,
     });
 
