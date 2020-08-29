@@ -19,8 +19,8 @@ class ListProvidersService {
     const users = await this.usersRepository.findAllProviders({
       except_user_id: user_id,
     });
-    if (!users) {
-      throw new AppError('User not found');
+    if (!users || users.length < 1) {
+      throw new AppError('No users found');
     }
 
     return users;

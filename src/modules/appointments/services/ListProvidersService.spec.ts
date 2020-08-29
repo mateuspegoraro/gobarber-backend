@@ -1,6 +1,7 @@
 // import AppError from '@shared/errors/AppError';
 import FakeUserRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 
+import AppError from '@shared/errors/AppError';
 import ListProvidersService from './ListProvidersService';
 
 let fakeUserRepository: FakeUserRepository;
@@ -35,5 +36,19 @@ describe('ListProviders', () => {
     });
 
     expect(providers).toEqual([provider1, provider2]);
+  });
+
+  it('should not be able to list providers if they does not exist', async () => {
+    const loggedUser = await fakeUserRepository.create({
+      name: 'John Doe3',
+      email: 'johndoe3@email.com',
+      password: '123321',
+    });
+
+    await expect(
+      listProvider.execute({
+        user_id: loggedUser.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
