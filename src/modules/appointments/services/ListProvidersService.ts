@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import AppError from '@shared/errors/AppError';
 
 interface IRequest {
   user_id: string;
@@ -25,6 +26,10 @@ class ListProvidersService {
         except_user_id: user_id,
       });
       await this.cacheProvider.save(key, users);
+    }
+
+    if (!users || users.length <= 0) {
+      throw new AppError('No providers found');
     }
 
     return users;

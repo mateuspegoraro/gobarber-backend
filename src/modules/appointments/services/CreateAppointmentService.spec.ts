@@ -1,19 +1,23 @@
 import AppError from '@shared/errors/AppError';
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeAppointmentRepository from '../repositories/fakes/FakeAppointmentsRepository';
 import CreateAppointmentService from './CreateAppointmentService';
 
+let fakeCacheProvider: FakeCacheProvider;
 let fakeAppointmentRepository: FakeAppointmentRepository;
 let fakeNotificationsRepository: FakeNotificationsRepository;
 let createAppointmentService: CreateAppointmentService;
 
 describe('CreateAppointment', () => {
   beforeEach(() => {
+    fakeCacheProvider = new FakeCacheProvider();
     fakeAppointmentRepository = new FakeAppointmentRepository();
     fakeNotificationsRepository = new FakeNotificationsRepository();
     createAppointmentService = new CreateAppointmentService(
       fakeAppointmentRepository,
       fakeNotificationsRepository,
+      fakeCacheProvider,
     );
   });
 
@@ -33,18 +37,18 @@ describe('CreateAppointment', () => {
 
   it('should not be able to create two appointments on the same datetime', async () => {
     jest.spyOn(Date, 'now').mockImplementation(() => {
-      return new Date(2020, 4, 10, 8).getTime();
+      return new Date(2020, 4, 10, 10).getTime();
     });
 
     await createAppointmentService.execute({
-      date: new Date(),
+      date: new Date(2020, 4, 10, 10),
       user_id: '654321',
       provider_id: '123456',
     });
 
     await expect(
       createAppointmentService.execute({
-        date: new Date(),
+        date: new Date(2020, 4, 10, 10),
         user_id: '654321',
         provider_id: '123456',
       }),

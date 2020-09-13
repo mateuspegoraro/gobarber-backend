@@ -3,11 +3,9 @@ import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
 import AuthenticateUserService from './AuthenticateUserService';
-import CreateUserService from './CreateUserService';
 
 let fakeUserRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
-let createUserService: CreateUserService;
 let authenticateUserService: AuthenticateUserService;
 
 describe('AuthenticateUser', () => {
@@ -15,10 +13,6 @@ describe('AuthenticateUser', () => {
     fakeUserRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
 
-    createUserService = new CreateUserService(
-      fakeUserRepository,
-      fakeHashProvider,
-    );
     authenticateUserService = new AuthenticateUserService(
       fakeUserRepository,
       fakeHashProvider,
@@ -26,7 +20,7 @@ describe('AuthenticateUser', () => {
   });
 
   it('should be able to authenticate', async () => {
-    const user = await createUserService.execute({
+    const user = await fakeUserRepository.create({
       name: 'Test',
       email: 'test@test.com',
       password: '123456',
@@ -51,7 +45,7 @@ describe('AuthenticateUser', () => {
   });
 
   it('should not be able to authenticate with wrong password', async () => {
-    await createUserService.execute({
+    await fakeUserRepository.create({
       name: 'Test',
       email: 'test@test.com',
       password: '123456',
