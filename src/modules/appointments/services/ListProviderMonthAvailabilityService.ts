@@ -44,7 +44,8 @@ class ListProviderMonthAvailabilityService {
 
     const availability = eachDayArray.map(day => {
       const compareDate = new Date(year, month - 1, day, 23, 59, 59);
-      if (!isAfter(compareDate, new Date())) {
+      // console.log(compareDate, ' - ', new Date());
+      if (!isAfter(compareDate, Date.now())) {
         return {
           day,
           available: false,

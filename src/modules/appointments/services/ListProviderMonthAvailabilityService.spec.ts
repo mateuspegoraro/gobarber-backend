@@ -95,6 +95,10 @@ describe('ListProviderMonthAvailability', () => {
       provider_id: provider.id,
     });
 
+    jest.spyOn(Date, 'now').mockImplementation(() => {
+      return new Date(2020, 4, 19, 11).getTime();
+    });
+
     const availability = await listProviderMonthAvailability.execute({
       provider_id: provider.id,
       year: 2020,
