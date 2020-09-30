@@ -4,6 +4,7 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
+import { classToClass } from 'class-transformer';
 
 interface IRequest {
   user_id: string;
@@ -25,7 +26,7 @@ class ListProvidersService {
       users = await this.usersRepository.findAllProviders({
         except_user_id: user_id,
       });
-      await this.cacheProvider.save(key, users);
+      await this.cacheProvider.save(key, classToClass(users));
     }
 
     if (!users || users.length <= 0) {
